@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Prolog</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+			.slide-menu-panel {
+				zoom: 0.85;
+			}
+
+			h1 {
+				text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 20px 20px rgba(0, 0, 0, 0.15) !important;
+			}
+
+			h1, h2, h3, h4 {
+				text-transform: none !important;
+			}
+
+			p {
+				font-size: 20px !important;
+			}
+
+			ul.formatted,
+			ol.formatted {
+				text-align: justify !important;
+				font-size: 20px !important;
+			}
+
+			ol.formatted li {
+				margin-bottom: 25px;
+				margin-left: 50px;
+				padding: 0px;
+			}
+
+			ol.formatted {
+				list-style: none;
+				counter-reset: item;
+			}
+
+			ol.formatted li {
+				counter-increment: item;
+			}
+
+				ol.formatted li::before {
+					content: counter(item);
+					border-radius: 60% 40% 63% 37% / 40% 46% 54% 60%;
+					width: 1.2em;
+					text-align: center;
+					display: inline-block;
+					background-color: rgba(165,165,165,0.1);
+					font-size: 45px;
+					font-family: fantasy;
+					margin-left: -65px;
+					margin-right: 10px;
+					vertical-align: text-top;
+					margin-bottom: -40px;
+				}
+
+			.big-i {
+				margin-left: 20px !important;
+			}
+		
+			.big-i::before {
+				content: "";
+				display: inline-block;
+				margin-right: 6px;
+				width: 8px;
+				height: 40px;
+				border-radius: 50px;
+				background-color: var(--r-main-color);
+				margin-left: -18px;
+			}
+
+			.big-number {
+				padding-left: 55px !important;
+			}
+
+				.big-number::before {
+					content: "" attr(data-number);
+					display: block;
+					margin-right: 6px;
+					width: 8px;
+					height: 26px;
+					margin-left: -33px;
+					font-size: 45px;
+					font-family: fantasy;
+				}
+
+			.goto-next,
+			.goto-previous {
+				font-size: 20px !important;
+				font-weight: bold;
+				background-color: rgba(165,165,165,0.1);
+				display: inline-block;
+				border-radius: 30px;
+				padding: 20px;
+			}
+
+			.tags-cloud {
+				padding-top: 15px;
+			}
+
+				.tags-cloud li {
+					float: left;
+					list-style-type: none;
+					border-radius: 10px;
+					background-color: rgba(165,165,165,0.05);
+					margin: 8px 5px;
+					padding: 1px 9px;
+				}
+
+			ul.companies {
+				font-size: 20px;
+				columns: 3;
+				-webkit-columns: 3;
+				-moz-columns: 3;
+				width: 80%;
+			}
+
+				ul.companies li {
+					list-style-type: none;
+				}
+
+					ul.companies li img {
+						filter: invert(100%);
+						scale: 0.6;
+					}
+
+			.border-radius-aaa {
+				display: inline-block;
+				background-color: rgba(165,165,165,0.05);
+				border-radius: 60% 40% 51% 49% / 56% 55% 45% 44%;
+			}
+
+			.pagination {
+				font-size: 20px !important;
+				font-weight: bold;
+				background-color: rgba(165,165,165,0.1);
+				display: inline-block;
+				padding: 20px;
+				border-radius: 60% 40% 51% 49% / 56% 55% 45% 44%;
+			}
+
+			.border-radius-bbb {
+				display: inline-block;
+				background-color: rgba(165,165,165,0.05);
+				border-radius: 60% 40% 63% 37% / 40% 46% 54% 60%;
+			}
+
+			code {
+				font-size: 20px;
+			}
+
+			.scrollable-slide::-webkit-scrollbar {
+				display: none !important;
+			}
+        
+			.scrollable-slide {
+				height: 700px;
+				overflow-y: scroll;
+			}
+
+			/* https://codepen.io/PixelKhaos/pen/PojQOdN **/
+
+			.container-fluid {
+				padding: 1.5em 0;
+			}
+
+				.container-fluid h1, .container-fluid p {
+					color: #fff;
+					margin-block-end: 0;
+					text-align: center;
+				}
+
+				.container-fluid p {
+					font-size: 16px;
+					margin-bottom: 4em;
+				}
+
+			@charset "UTF-8";
+
+			.multi-steps > li.is-active ~ li:before, .multi-steps > li.is-active:before {
+				font-weight: 700;
+			}
+
+			.multi-steps > li.is-active ~ li:after, .multi-steps > li.is-active:after {
+				background-color: var(--r-main-color);
+			}
+
+			.multi-steps {
+				display: inline-table !important;
+				table-layout: fixed;
+				width: calc(100% - 60px);
+			}
+
+				.multi-steps > li {
+					counter-increment: stepNum;
+					text-align: center;
+					display: table-cell;
+					position: relative;
+					color: var(--r-link-color);
+					line-height: 38px;
+				}
+
+					.multi-steps > li:before {
+						font-family: fantasy;
+						content: counter(stepNum);
+						display: block;
+						margin: 0 auto 4px;
+						background-color: #2c2935;
+						width: 36px;
+						height: 36px;
+						line-height: 32px;
+						text-align: center;
+						font-weight: bold;
+						border-width: 2px;
+						border-style: solid;
+						border-color: var(--r-link-color);
+						border-radius: 50%;
+						line-height: 36px;
+						z-index: 2;
+						position: relative;
+					}
+
+					.multi-steps > li:after {
+						content: "";
+						height: 2px;
+						width: 100%;
+						background-color: var(--r-link-color);
+						position: absolute;
+						top: 16px;
+						left: 50%;
+						z-index: 0;
+					}
+
+					.multi-steps > li:last-child:after {
+						display: none;
+					}
+
+					.multi-steps > li.is-active:before {
+						background-color: #2c2935;
+						border-color: var(--r-link-color);
+						box-shadow: 0 0 0 0px #e2ab3c90;
+						animation: fadesplode 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+					}
+
+					.multi-steps > li.is-active ~ li {
+						color: var(--r-main-color);
+					}
+
+						.multi-steps > li.is-active ~ li:before {
+							background-color: var(--r-main-color);
+							border-color: var(--r-main-color);
+							color: #2c2935;
+						}
+
+				.multi-steps .tooltip {
+					opacity: 0;
+					background: var(--r-link-color);
+					font-size: 15px;
+					/*width: fit-content;
+					max-width: 100%;*/
+					width: 240px;
+					color: #000;
+					position: absolute;
+					transform: translate(-50%, 1em);
+					bottom: -15px;
+					left: 50%;
+					right: -50%;
+					overflow-wrap: anywhere;
+					padding: 0.5em 1em;
+					border-radius: 5px;
+					line-height: 20px;
+					transition: all 0.3s ease;
+					box-shadow: 2px 2px 15px #20202050;
+				}
+
+					.multi-steps .tooltip:before {
+						content: '';
+						background: var(--r-link-color);
+						width: 15px;
+						height: 15px;
+						display: block;
+						position: absolute;
+						left: 50%;
+						transform: translate(-50%, -15px) rotate(45deg);
+						z-index: -1;
+					}
+
+				.multi-steps > li:hover > .tooltip {
+					opacity: 1;
+					bottom: -55px;
+				}
+
+				.multi-steps > li:hover {
+					cursor: pointer;
+				}
+
+			@keyframes fadesplode {
+				0% {
+					box-shadow: 0 0 0 0px var(--r-link-color);
+				}
+
+				75%,100% {
+					box-shadow: 0 0 0 8px #ffffff00;
+				}
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section id="thierry-langie" data-menu-title="Thierry Langie">
+						<ul class="formatted" style="float: left;">
+							<li><a href="#/blog">Design patterns blog</a></li>
+							<li><a href="#/process-6-steps">6-steps process</a></li>
+							<li><a href="#/upcoming-book">Upcoming book</a></li>
+							<li><a href="#">Get in touch</a></li>
+							<li><a href="#/professional-experience">My clients</a></li>
+							<li><a href="#">Hire me</a></li>
+						</ul>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Thierry Langie</h3>
+						<p style="float: right; max-width: 35%; text-align: justify; margin: 0;">
+							I've been extremely busy with my <a href="#/upcoming-book">upcoming book</a>.
+							It has demanded a substantial amount of time, energy, and attention to detail. This process has been a labor of love regarding my passion for the subject.
+						</p>
+						<br />
+						<p style="text-align:justify" class="big-i">
+							I have been working as a programmer since 1996.
+							I do this for a living and love what I do as every day there is something new and exciting to learn.
+							I have been fortunate to work with some truly exceptional businesses over the last 20 years in totally different industries.
+							I have engineered strong, data-driven web applications using the Microsoft .NET Framework.
+							I am eager to learn new methods and technologies to make my work more efficient and useful.
+							Click here to find more about my <a href="#/0/1">professional experience</a> below.
+						</p>
+
+
+						<div style="display: grid; grid-template-columns: 1fr 1fr;">
+							<ul class="formatted" style="display: block;">
+								<li class="animate__skidLeft" data-delay="00"><strong>LinkedIn</strong> profile page is <a href="https://www.linkedin.com/in/thierrylangie/" target="_blank">available here</a></li>
+								<li class="animate__skidLeft" data-delay="10"><strong>Availability</strong>: Freelance / Remotely / Part time</li>
+								<li class="animate__skidLeft" data-delay="20"><strong>Updated CV</strong> in <a href="https://www.prolog.red/cv/cv_Thierry_Langie.pdf" target="_blank">Adobe PDF</a> or <a href="https://www.prolog.red/cv/cv_Thierry_Langie.docx">Word DOC</a> format</li>
+								<li class="animate__skidLeft" data-delay="30"><strong>Role</strong>: Full stack .Net developer</li>
+								<li class="animate__skidLeft" data-delay="40"><strong>Email</strong>: <a href="mailto:thierry.langie@skynet.be">thierry.langie@skynet.be</a></li>
+								<li class="animate__skidLeft" data-delay="50"><strong>Location</strong>: Namur, Belgium</li>
+								<li class="animate__skidLeft" data-delay="60"><strong>Experience</strong>: <a href="#/0/1">20+ missions / years</a></li>
+							</ul>
+
+							<ul class="formatted tags-cloud">
+								<li style="margin-left: 36px;">c-sharp</li>
+								<li><a href="#">asp.net mvc</a></li>
+								<li>asp.net core</li>
+								<li style="display: none;">razor</li>
+								<li><a href="#">blazor</a></li>
+								<li>iis</li>
+								<li>smtp server</li>
+								<li>sql server</li>
+								<li>html5</li>
+								<li style="margin-left: 18px;">css3</li>
+								<li>javascript</li>
+								<li>typescript</li>
+								<li><a href="#">ajax</a></li>
+								<li>jquery</li>
+								<li style="margin-left: 50px;">tfs</li>
+								<li><a href="#">github</a></li>
+								<li>entity</li>
+								<li>visual studio</li>
+							</ul>
+						</div>
+
+					</section>
+					<section id="professional-experience" data-menu-title="Professional experience">
+						<h3>Professional experience</h3>
+						<br />
+						<ul class="formatted" style="font-size: 20px; columns: 3; -webkit-columns: 3; -moz-columns: 3; width: 80%;">
+							<li><a href="#/schenk">Schenk</a></li>
+							<li><a href="#/credit-general">Credit General</a></li>
+							<li><a href="#/labima">Labima</a></li>
+							<li><a href="#/kraft-jacobs-suchard">Kraft Jacobs Suchard</a></li>
+							<li><a href="#/coca-cola">Coca-Cola Belgium</a></li>
+							<li><a href="#/jpass-international">JPass International</a></li>
+							<li><a href="#/t-plan">T-Plan</a></li>
+							<li><a href="#/sopres">Sopres</a></li>
+							<li><a href="#/tott-systems">Tott Systems</a></li>
+							<li><a href="#/fortis-insurance">Fortis Insurance</a></li>
+							<li><a href="#/baxter">Baxter</a></li>
+							<li><a href="#/akzonobel">AkzoNobel</a></li>
+							<li><a href="#/glaxo-smith-kline">Glaxo Smith Kline</a></li>
+							<li><a href="#/olympic-committee">Olympic Committee</a></li>
+							<li><a href="#/transnubel">Transnubel</a></li>
+							<li><a href="#/engie-solutions">Engie Solutions</a></li>
+							<li><a href="#/equans">Equans Belgium</a></li>
+						</ul>
+					</section>
+					<section id="schenk">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Professional experience</a>
+						<h4 style="text-align: justify;">Schenk</h4>
+						<p style="text-align: justify;">
+							Wine merchant on a European scale. After more than a century, the Schenk group is present in Switzerland, France, Italy, Spain, Germany, Benelux and Great Britain. The group’s steady expansion is combined with a policy of major investments in vineyards as well as in recent equipment and techniques for wine cellars and bottling lines.
+						</p>
+						<p style="text-align: justify;">
+							●1996● Stock Management System with statistics and reports. Complete stock control over multiple warehouses and locations. Overview of stock data, minimal quantities and expiring items. Useful insights into profit, sales and stock supply. Simplify and speed up the process from quote to delivery and final invoice.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Credit General<br />▼</a>
+					</section>
+					<section id="credit-general">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Schenk</a>
+						<h4 style="text-align: justify;">Credit General</h4>
+						<p style="text-align: justify;">
+							Now parts of the group CBC (french-speaking branch of the KBC group). Belgian group of international scope, active mainly in Belgium as well as in Central and Eastern Europe.
+						</p>
+						<p style="text-align: justify;">
+							●1996● Prospection Software designed for the Credit General. Complete module of prospection and qualification of prospects and customers files. Complete history of all actions on prospect/client files and contacts. Complete workflow on appointments management : appointments orders, confirmation of appointments, appointment status by employees, full statistics. Contact file entirely configurable (numbers of columns, column nominations).
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Labima<br />▼</a>
+					</section>
+					<section id="labima">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Credit General</a>
+						<h4 style="text-align: justify;">Labima</h4>
+						<p style="text-align: justify;">
+							Belgian private pharmaceutical laboratory, located in the region of Brussels (Belgium). She ceased her activities in 2016. The objectives of Labima are clear: delivering high quality products and services in a win-win way for our partners and ourselves.
+						</p>
+						<p style="text-align: justify;">
+							●1997● Sales Representative software for monitoring commercial delegates performance. The bi-directional synchronization is done daily. Main features are as follows: recording sales visit data; arranging follow-up calls or visits; route planning between appointments; sales reporting.</li>
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Kraft Jacobs Suchard<br />▼</a>
+					</section>
+					<section id="kraft-jacobs-suchard">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Labima</a>
+						<h4 style="text-align: justify;">Kraft Jacobs Suchard</h4>
+						<p style="text-align: justify;">
+							Now belongs to group Kraft Foods which is an American food manufacturing.
+						</p>
+						<p style="text-align: justify;">
+							●1998● European Survey on sales performance. Electronic forms dispatched via Outlook in order to collect information. Serves as an indicator of the country’s statistical performance.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Coca-Cola<br />▼</a>
+					</section>
+					<section id="coca-cola">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Kraft Jacobs Suchard</a>
+						<h4 style="text-align: justify;">Coca-Cola</h4>
+						<p style="text-align: justify;">
+							American multinational beverage corporation incorporated under Delaware’s General Corporation Law and headquartered in Atlanta, Georgia. The Coca-Cola Company has interests in the manufacturing, retailing, and marketing of nonalcoholic beverage concentrates and syrups. The company produces Coca-Cola, invented in 1886 by pharmacist John Stith Pemberton.
+						</p>
+						<p style="text-align: justify;">
+							●1998● Migration of Excel Macros to interrogate a server mainframe-based. SQL queries dynamically generated.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">JPass International<br />▼</a>
+					</section>
+					<section id="jpass-international">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Coca-Cola</a>
+						<h4 style="text-align: justify;">JPass International</h4>
+						<p style="text-align: justify;">
+							Belgian private ICT company, located in the region of Brussels (Belgium). she ceased her activities in 2016.
+						</p>
+						<p style="text-align: justify;">
+							●1997● Material Safety Data Sheets (MSDS) expert software. Manage transport documents and security documents related to chemicals. Users can easily search and print SDS’s for all of the chemicals they work with. Software used by clients like Petrofina, Texaco and Total to name a few.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">T-Plan<br />▼</a>
+					</section>
+					<section id="t-plan">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />JPass International</a>
+						<h4 style="text-align: justify;">T-Plan</h4>
+						<p style="text-align: justify;">
+							Continued the development of the test management tool, for testing of the dematerialisation of share certificates project. The solution was ensuring that programs of critical importance to the UK and Global economy were developed, tested and launched successfully.
+						</p>
+						<p style="text-align: justify;">
+							●1999● Geographic Information System (GIS) software. Used to establish routes for placement of optic fibers in the ground. The software integrate Autocad maps (dwg) for mapping. Modulation and structuration of spatial data. Complete toolbox (plot, lines, curves, shapes, adding annotations, etc…).
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Sopres<br />▼</a>
+					</section>
+					<section id="sopres">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />T-Plan</a>
+						<h4 style="text-align: justify;">Sopres</h4>
+						<p style="text-align: justify;">
+							A consumer-oriented marketing data specialist.
+						</p>
+						<p style="text-align: justify;">
+							●1999● In-house Rental Mailing List software designed with IT and business collaboration in mind. The software’s capability to handle various kinds of queries according to the business requirements. Helps minimize human error and offers a secure way for all users to access and utilize data. Help identify and fill gaps in missing information, and decrease redundancy. Easy-to-use and intuitive interface so that even your non-technical staff can use it.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Tott Systems<br />▼</a>
+					</section>
+					<section id="tott-systems">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Sopres</a>
+						<h4 style="text-align: justify;">Tott Systems</h4>
+						<p style="text-align: justify;">
+							Belgian private ICT company, located in the region of Brussels (Belgium). She ceased her activities in 2005.
+						</p>
+						<p style="text-align: justify;">
+							●1999● Helpdesk Solution for monitoring interventions among company’s clients.
+							<br />
+							●1999● Freight Transport Management software. Made bug-fixes and added features to the application.
+							<br />
+							●2000● Year 2000 developments related as well as the changeover to the euro currency.
+							<br />
+							●2000● Backup Solution software designed in 2000. Remotely controlled through a phone connection (RDC).
+							<br />
+							●2001● Documentation Automation solution from source code.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Fortis Insurance Belgium<br />▼</a>
+					</section>
+					<section id="fortis-insurance">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Tott Systems</a>
+						<h4 style="text-align: justify;">Fortis Insurance Belgium</h4>
+						<p style="text-align: justify;">
+							Belgian insurance company providing life insurance and non-life insurance (auto, fire, accident, hospitalization, civil liability and other) and supplementary pensions. It has been present on the Belgian insurance market since 1824. It targets private individuals, as well as self-employed persons, SMEs and large companies.
+						</p>
+						<p style="text-align: justify;">
+							●2000● Financial Operations (FinOp) software. Bug fixing and implemented enhancements.
+							<br />
+							●2001● Authentication modules to gain access to internet services. Stability improvements.
+							<br />
+							●2002● E-banking Access Securisation module updated in 2002. Digipass readers.
+							<br />
+							●2003● Tax Records Management software designed in 2003 for internal use.
+							<br />
+							●2004● Expenses Validation web-based application updated in 2004. As a member of a five-person team.
+							<br />
+							●2005● Brokers Bank website. Collaborated closely with a fifteenperson team.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Baxter<br />▼</a>
+					</section>
+					<section id="baxter">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Fortis Insurance Belgium</a>
+						<h4 style="text-align: justify;">Baxter</h4>
+						<p style="text-align: justify;">
+							American multinational health care company with headquarters in Deerfield, Illinois. The company primarily focuses on products to treat hemophilia, kidney disease, immune disorders and other chronic and acute medical conditions.
+						</p>
+						<p style="text-align: justify;">
+							●2010● Environment Health Safety (EHS) software release new updated version in 2010. Industrial hygiene and chemical risk management to improve well-being at work. Help reduce time, effort and cost by standardising and automating processes in order to improve effectiveness and efficiency.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">AkzoNobel<br />▼</a>
+					</section>
+					<section id="akzonobel">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Baxter</a>
+						<h4 style="text-align: justify;">AkzoNobel</h4>
+						<p style="text-align: justify;">
+							Dutch multinational company which creates paints and performance coatings for both industry and consumers worldwide. Headquartered in Amsterdam, the company has activities in more than 80 countries, and employs over 32,000 people.
+						</p>
+						<p style="text-align: justify;">
+							●2010● Production Management Template for Microsoft Excel®. Generator and calculator of production orders. Main features are planning, monitoring, production statistics and reporting. Furthermore the elimination of manual data entry and manual transposition errors improved the process.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Glaxo Smith Kline<br />▼</a>
+					</section>
+					<section id="glaxo-smith-kline">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />AkzoNobel</a>
+						<h4 style="text-align: justify;">Glaxo Smith Kline</h4>
+						<p style="text-align: justify;">
+							British multinational pharmaceutical company headquartered in London, England. Established in 2000 by a merger of Glaxo Wellcome and SmithKline Beecham, GSK was the world’s sixth largest pharmaceutical company according to Forbes as of 2019, after Pfizer, Novartis, Roche, Sanofi, and Merck & Co.
+						</p>
+						<p style="text-align: justify;">
+							●2009● BioStat Scientific data collection and analysis software. The objectives laid down for this program are multiple like the ease of use, the clear presentation of results. All the possible statistical procedures have not been included yet but any such additions are quite simple.
+							<br />
+							●2010● Dynamic Planner Template released for Microsoft Excel®. Custom made tool allowing order taking of new preparations and their planning on a dynamic schedule covering a full year. Daily, weekly, monthly planner that helps teams to keep well organized. Includes up to 52 weeks on separate worksheets. Designed to be printed on both sides of A3 format with a month on each side.
+							<br />
+							●2010● TrattScan In-house Management Training Courses Software updated in 2010 with enhancements and bug fixes. This tool can help teams to stay up-to-date and quickly gain new skills with engaging training modules by connecting users to their every process, policy, and procedure.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Belgian Olympic Committee<br />▼</a>
+					</section>
+					<section id="olympic-committee">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Glaxo Smith Kline</a>
+						<h4 style="text-align: justify;">Belgian Olympic Committee</h4>
+						<p style="text-align: justify;">
+							National Olympic Committee (NOC) that represents the Olympic movement and its values in Belgium.
+						</p>
+						<p style="text-align: justify;">
+							●2011● Sports Information Management System updated during the first half of 2011 with enhancements and helped spot and debug any errors inside this in-house software. The primary goal is the recording of individual athlete’s profiles for fast and reliable access to information.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Transnubel<br />▼</a>
+					</section>
+					<section id="transnubel">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Belgian Olympic Committee</a>
+						<h4 style="text-align: justify;">Transnubel</h4>
+						<p style="text-align: justify;">
+							Highly integrated solutions provider for the nuclear sector. They coordinate all the activities in Belgium and abroad from the headquarters in the Belgian town of Dessel.
+						</p>
+						<p style="text-align: justify;">
+							●2006● Enterprise Content Management (ECM) - Transport Management System (TMS)
+							<br />
+							●2008● Industrial Packages Monitoring software
+							<br />
+							●2012● Shuttle Transport Booking web application
+							<br />
+							●2014● Packing Registration and Identification Software (PARIS)
+							<br />
+							●2015● Intranet-like web portal for internal use
+							<br />
+							●2016● Web-based Transport Management System (TMS)
+							<br />
+							●2018● Web-based Enterprise Content Management (ECM)
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Engie Solutions<br />▼</a>
+					</section>
+					<section id="engie-solutions">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Transnubel</a>
+						<h4 style="text-align: justify;">Engie Solutions</h4>
+						<p style="text-align: justify;">
+							Engie Solutions supports cities, industries and tertiary sector companies by providing them with answers to the challenge of the energy transition through turnkey and tailor-made offers.
+						</p>
+						<p style="text-align: justify;">
+							●2021● Migration tasks from on-premises infrastructure to Azure cloud servers. Implemented effective strategies to ensure seamless transition. Collaborated with the stakeholders and various technical teams. IIS Mail Server integration with various applications, resulting in improved communication and workflow efficiency. This involved configuring SMTP and IMAP protocols to ensure secure and reliable email delivery.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Equans<br />▼</a>
+					</section>
+					<section id="equans">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Engie Solutions</a>
+						<h4 style="text-align: justify;">Equans Belgium</h4>
+						<p style="text-align: justify;">
+							Leading global player in multi-technical installations and maintenance services. They design, install and deliver customised solutions and services to improve customers' infrastructure, equipment, systems and technical processes.
+						</p>
+						<p style="text-align: justify;">
+							●2022● Okta integration with existing web applications for simplifying the process of securing sensitive data. As an Okta integrator, I had to design and implement solutions that meet the unique needs of each web application. Interoperability of various web applications allowing exchange of data between different platforms, ultimately leading to improved productivity and enhanced user experience.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section data-auto-animate id="process-6-steps" data-menu-title="6-steps process">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-i">
+							As a freelance web application developer, I follow a process that helps me deliver high-quality web apps for my clients. Here are the main steps of my process. Click on each one to read more.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-1" data-menu-title="Step 1: Discovering">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li class="is-active" onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="1">
+							Collect a comprehensive and extensive array of data and insights pertaining to your business needs, encompassing details on various aspects such as any relevant information that could aid in enhancing my understanding of your company's position and prospects.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-2" data-menu-title="Step 2: Prototype">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li class="is-active" onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="2">
+							Generate a meticulously crafted wireframe and user interface (UI) design that is thoughtfully and intricately tailored to align with your specific and detailed project requirements, ensuring that it reflects your unique vision and goals for the user experience. This process involves a comprehensive exploration of your design prerequisites, encompassing elements like layout, navigation structure, user interaction, and other essential design components, all of which are instrumental in delivering a user-friendly and final product that resonates with your users.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-3" data-menu-title="Step 3: Development">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li class="is-active" onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="3">
+							Embark on the web application development journey by meticulously translating the conceptual prototype into a fully functional and dynamic web application, employing an array of carefully chosen technology stacks and frameworks that have been strategically selected to align seamlessly with the unique characteristics and requirements of the project. This iterative and collaborative development process will encompass various phases, including but not limited to coding, testing, debugging, and optimization, with a strong emphasis on ensuring that the final product not only realizes the envisioned prototype but also harnesses the full potential of the selected technologies to deliver a robust, scalable, and feature-rich web application that effectively serves its intended purpose.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-4" data-menu-title="Step 4: Testing">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li class="is-active" onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="4">
+							Conduct thorough and comprehensive testing procedures that encompass a multifaceted assessment of the web application, focusing on key facets such as usability, performance, and a host of other critical aspects to ensure that the final product attains the highest standards of quality and functionality. This multifaceted testing process involves rigorous evaluations of user interface design, user experience, accessibility, load times, response times, scalability, security, compatibility across various devices and browsers, as well as adherence to industry standards and best practices. By undertaking this extensive and meticulous testing regimen, we aim to not only identify and rectify any potential issues or shortcomings but also to optimize the web application's performance, enhance its user-friendliness, and guarantee that it delivers a seamless and satisfying experience to a diverse user base.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-5" data-menu-title="Step 5: Launch">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li class="is-active" onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="5">
+							The launch process involves a coordinated series of steps, including the deployment of the application to its hosting environment, the configuration of essential server settings, the implementation of security measures, and the monitoring of performance to guarantee a seamless and trouble-free introduction to the online ecosystem. This stage is a pivotal milestone, signifying the transition of the web application from a development and testing phase to a live and operational state, where it can begin to make a tangible impact and deliver value to its target audience.
+						</p>
+					</section>
+					<section data-auto-animate id="process-step-6" data-menu-title="Step 6: Maintenance">
+						<h3 class="border-radius-bbb" style="padding: 36px;">6-steps process</h3>
+
+						<div class="container-fluid">
+
+							<ul class="formatted list-unstyled multi-steps">
+								<li onclick="window.location.href='#/process-step-1';">
+									Discovering
+									<div class="tooltip">
+										Gather as much information as possible about your business
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-2';">
+									Prototype
+									<div class="tooltip">
+										Create wireframe and UI design based on your requirements
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-3';">
+									Development
+									<div class="tooltip">
+										Develop the web app based on the prototype and technology stacks.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-4';">
+									Testing
+									<div class="tooltip">
+										Testing regarding usability, performance and other aspects.
+									</div>
+								</li>
+								<li onclick="window.location.href='#/process-step-5';">
+									Launch
+									<div class="tooltip">
+										Launch the web app after extensive testing and obtaining approval
+									</div>
+								</li>
+								<li class="is-active" onclick="window.location.href='#/process-step-6';">
+									Maintenance
+									<div class="tooltip">
+										Ensure your web app stays up-to-date and add new features if needed
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p style="text-align:justify" class="big-number" data-number="6">
+							Sustain the ongoing relevance and functionality of your web application by diligently and proactively maintaining it, an indispensable endeavor that involves not only keeping the application's existing features and components up-to-date but also having the agility to incorporate new, cutting-edge features when required to ensure that it remains in alignment with evolving industry trends and user demands. This continuous and adaptive process of web application management necessitates a vigilant approach, encompassing tasks such as regular software updates, security patches, bug fixes, and performance optimizations to safeguard the application's stability and resilience.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section data-auto-animate id="upcoming-book" data-menu-title="Upcoming book">
+						<ul class="formatted" style="float: left;">
+							<li>Self-publishing</li>
+							<li>Paperback book</li>
+							<li>Many code examples</li>
+							<li>2 weeks delivery time</li>
+							<li>First edition</li>
+							<li>194 pages</li>
+						</ul>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Upcoming book</h3>
+						<p style="float: right; max-width: 35%; text-align: justify; margin: 0;">
+							This book explores different software development methods
+							and habits that I have been applying for a long time.
+							All the enterprise developers who are part of our industry
+							are the potential readers.
+						</p>
+						<br />
+						<div style="float: left; width: 30%;">
+							<img src="images/book-cover-1.png" style="filter: drop-shadow(11px 7px 12px rgba(35,35,35,0.7));" />
+						</div>
+						<div style="float: right; width: 60%;">
+							<p style="text-align: justify; margin-top: 40px; margin-bottom: 40px;">
+								<span style="border-radius: 25px; padding: 2px 7px; border: 3px dotted rgba(165,165,165,0.3);">What readers are saying ?</span>
+								Hear from some of the readers who get the book before its release !
+								Check out some of the testimonials to see <a href="#/2/1">what others are saying about this book</a>.
+							</p>
+							<ul class="formatted" style="display: block;">
+								<li>Practical exercises and code examples</li>
+								<li>Clear explanations with a focus on hands-on learning</li>
+								<li>Beginner-friendly but also covers advanced topics</li>
+								<li>Emphasis on best practices and coding standards</li>
+								<li>Updated for the latest C# features and .NET technologies</li>
+								<li>Real-world examples and projects</li>
+							</ul>	
+							<div style="margin-top: 40px;" class="pagination animate__fadeInDown animate__faster" data-delay="100">
+								<a href="" class="navigate-down">▼</a>
+							</div>							
+						</div>
+					</section>
+					<section id="testimonial-1" data-auto-animate data-menu-title="Testimonials">
+						<div style="float: left; width: 25%;">
+							<img src="images/book-cover-1.png" style="filter: drop-shadow(11px 7px 12px rgba(35,35,35,0.7));" />
+						</div>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Upcoming book</h3>
+						<p style="float: right; max-width: 35%; text-align: justify; margin: 0;">
+							This book explores different software development methods
+							and habits that I have been applying for a long time.
+							All the enterprise developers who are part of our industry
+							are the potential readers.
+						</p>
+						<br />
+
+						<div style="float: right; width: 60%;">
+							<svg style="display: block; margin-top: 60px;" width="33" height="20" viewBox="0 0 33 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.28375 19.41l-.49-.77c.42-1.6333.95667-3.57 1.61-5.81.65333-2.2867 1.35333-4.55 2.1-6.79.79333-2.28667 1.56333-4.27 2.31-5.9500041H15.3538C14.9338 2.09666 14.4904 4.26667 14.0238 6.6 13.5571 8.88666 13.1371 11.15 12.7638 13.39 12.4371 15.5833 12.1571 17.59 11.9238 19.41H1.28375zM31.69.0899959 32.18.859998C31.76 2.54 31.2233 4.5 30.57 6.74 29.9167 8.98 29.2167 11.2433 28.47 13.53 27.7233 15.77 26.9533 17.73 26.16 19.41H17.69C18.0167 17.9167 18.3433 16.33 18.67 14.65 18.9967 12.9233 19.3 11.22 19.58 9.54 19.9067 7.81333 20.1867 6.15667 20.42 4.57 20.7 2.93666 20.91 1.44333 21.05.0899959H31.69z" fill="currentcolor"></path></svg>
+							<p style="text-align: justify; font-style: italic;">
+								The book explains Software Engineering concepts in a clear way; while providing learning opportunities that become more challenging throughout the book. I found the learning approach very useful to reinforce and expand my knowledge of concepts such as modelling, Object-Oriented Programming (OOP), unit testing & Test-Driven Development and many others.
+							</p>
+							<div style="margin-top: 40px;" class="pagination animate__fadeInDown animate__faster" data-delay="100">
+								<a href="" class="navigate-up">▲</a>
+								<a href="" class="navigate-down">▼</a>
+							</div>
+						</div>
+					</section>
+					<section id="testimonial-2" data-auto-animate>
+						<div style="float: left; width: 25%;">
+							<img src="images/book-cover-1.png" style="filter: drop-shadow(11px 7px 12px rgba(35,35,35,0.7));" />
+						</div>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Upcoming book</h3>
+						<p style="float: right; max-width: 35%; text-align: justify; margin: 0;">
+							This book explores different software development methods
+							and habits that I have been applying for a long time.
+							All the enterprise developers who are part of our industry
+							are the potential readers.
+						</p>
+						<br />
+
+						<div style="float: right; width: 60%;">
+							<svg style="display: block; margin-top: 60px;" width="33" height="20" viewBox="0 0 33 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.28375 19.41l-.49-.77c.42-1.6333.95667-3.57 1.61-5.81.65333-2.2867 1.35333-4.55 2.1-6.79.79333-2.28667 1.56333-4.27 2.31-5.9500041H15.3538C14.9338 2.09666 14.4904 4.26667 14.0238 6.6 13.5571 8.88666 13.1371 11.15 12.7638 13.39 12.4371 15.5833 12.1571 17.59 11.9238 19.41H1.28375zM31.69.0899959 32.18.859998C31.76 2.54 31.2233 4.5 30.57 6.74 29.9167 8.98 29.2167 11.2433 28.47 13.53 27.7233 15.77 26.9533 17.73 26.16 19.41H17.69C18.0167 17.9167 18.3433 16.33 18.67 14.65 18.9967 12.9233 19.3 11.22 19.58 9.54 19.9067 7.81333 20.1867 6.15667 20.42 4.57 20.7 2.93666 20.91 1.44333 21.05.0899959H31.69z" fill="currentcolor"></path></svg>
+							<p style="text-align: justify; font-style: italic;">
+								I'm a self-taught programmer of 8+ years in various frameworks & languages, mostly sticking with C#. With all that in mind, this is simply a must-have to ANYONE who is interested in web development with C#. The book goes through everything you need to know to make your own web site from the very beginnings of a project and, throughout the book, construct a fully-functioning web application.
+							</p>
+							<div style="margin-top: 40px;" class="pagination animate__fadeInDown animate__faster" data-delay="100">
+								<a href="" class="navigate-up">▲</a>
+								<a href="" class="navigate-down">▼</a>
+							</div>
+						</div>
+					</section>
+					<section id="testimonial-3" data-auto-animate>
+						<div style="float: left; width: 25%;">
+							<img src="images/book-cover-1.png" style="filter: drop-shadow(11px 7px 12px rgba(35,35,35,0.7));" />
+						</div>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Upcoming book</h3>
+						<p style="float: right; max-width: 35%; text-align: justify; margin: 0;">
+							This book explores different software development methods
+							and habits that I have been applying for a long time.
+							All the enterprise developers who are part of our industry
+							are the potential readers.
+						</p>
+						<br />
+
+						<div style="float: right; width: 60%;">
+							<svg style="display: block; margin-top: 60px;" width="33" height="20" viewBox="0 0 33 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.28375 19.41l-.49-.77c.42-1.6333.95667-3.57 1.61-5.81.65333-2.2867 1.35333-4.55 2.1-6.79.79333-2.28667 1.56333-4.27 2.31-5.9500041H15.3538C14.9338 2.09666 14.4904 4.26667 14.0238 6.6 13.5571 8.88666 13.1371 11.15 12.7638 13.39 12.4371 15.5833 12.1571 17.59 11.9238 19.41H1.28375zM31.69.0899959 32.18.859998C31.76 2.54 31.2233 4.5 30.57 6.74 29.9167 8.98 29.2167 11.2433 28.47 13.53 27.7233 15.77 26.9533 17.73 26.16 19.41H17.69C18.0167 17.9167 18.3433 16.33 18.67 14.65 18.9967 12.9233 19.3 11.22 19.58 9.54 19.9067 7.81333 20.1867 6.15667 20.42 4.57 20.7 2.93666 20.91 1.44333 21.05.0899959H31.69z" fill="currentcolor"></path></svg>
+							<p style="text-align: justify; font-style: italic;">
+								The book is easy to follow. Explains the basic’s very detailed to comprehend. The book isn’t a thick arsed book, where your like my gosh..I have to read this all to get it?? Chapters aren’t long, at all…gets to the darn point of things. A must have for anyone who needs help, in learning C# or for anyone who needs to revisit the subject…and besides it’s inexpensive to buy…Enjoy.
+							</p>
+							<div style="margin-top: 40px;" class="pagination animate__fadeInDown animate__faster" data-delay="100">
+								<a href="" class="navigate-up">▲</a>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section id="blog" data-menu-title="Design patterns blog">
+						<div>
+							<ul class="formatted" style="float: left;">
+								<li><a href="#/singleton-design-pattern">Singleton Pattern</a></li>
+								<li><a href="#/factory-method-pattern">Factory Method Pattern</a></li>
+								<li><a href="#/abstract-factory-pattern">Abstract Factory Pattern</a></li>
+								<li><a href="#/builder-pattern">Builder Pattern</a></li>
+								<li><a href="#">Prototype Pattern</a></li>
+								<li><a href="#">Adapter Pattern</a></li>
+								<li><a href="#">Decorator Pattern</a></li>
+								<li><a href="#">Facade Pattern</a></li>
+							</ul>
+							<h3 class="border-radius-bbb" style="padding: 36px;">Blog</h3>
+							<ul class="formatted" style="float: right; max-width: 35%; margin: 0;">
+								<li><a href="#">Observer Pattern</a></li>
+								<li><a href="#">Strategy Pattern</a></li>
+								<li><a href="#">Command Pattern</a></li>
+								<li><a href="#">State Pattern</a></li>
+								<li><a href="#">Chain of Responsibility Pattern</a></li>
+								<li><a href="#">Model-View-ViewModel Pattern</a></li>
+								<li><a href="#">Repository Pattern</a></li>
+								<li><a href="#">Dependency Injection</a></li>
+							</ul>
+						</div>
+						<p style="clear: both; margin-top: 80px; text-align: justify;" class="big-i">
+							Design patterns in C# are recurring solutions to common problems encountered in software
+							design and development. They provide a structured approach to solving specific types of
+							problems and promote code reusability, maintainability, and extensibility. There are
+							various design patterns in C#, and they can be categorized into three main groups:
+							creational, structural, and behavioral patterns. Design patterns are not limited to C#
+							and can be applied in various programming languages. They help in solving common software
+							design problems and improving the overall quality and maintainability of code.
+						</p>
+						<div style="display: flex; justify-content: space-around;">
+							<a href="#/singleton-design-pattern"><img src="images/blog/singleton-design-pattern.png" height="95" /></a>
+							<a href="#/factory-method-pattern"><img src="images/blog/factory-method-pattern.png" height="95" /></a>
+							<a href="#/abstract-factory-pattern"><img src="images/blog/abstract-factory-pattern.png" height="95" /></a>
+							<a href="#/adapter-design-pattern"><img src="images/blog/adapter-design-pattern.png" height="95" /></a>						</div>
+					</section>
+					<section id="singleton-design-pattern" data-menu-title="Singleton Design Pattern">
+						<h4 style="text-align: justify;">Singleton Design Pattern</h4>
+						<p style="text-align: justify;">
+							The Singleton design pattern is a creational design pattern used in C# and other 
+							programming languages to ensure that a class has only one instance and provides 
+							a global point of access to that instance. It is commonly used when you want to 
+							limit the number of instances of a class to just one, for example, to manage a 
+							single configuration manager, a logging service, or a network connection pool. 
+							Here's an explanation of how the Singleton pattern works in C#. The Singleton Pattern has several key elements:
+						</p>
+						<ol class="formatted">
+							<li><b>Private Constructor</b>: The class has a private constructor to prevent external code from creating new instances of the class.</li>
+							<li><b>Private Static Instance</b>: The class contains a private static instance of itself. This instance is the single instance of the class that will be shared.</li>
+							<li><b>Public Static Method (GetSingleton)</b>: The class provides a public static method that allows external code to access the single instance. This method is usually named something like `GetInstance`, `GetSingleton`, or simply `Instance`.</li>
+							<li><b>Lazy Initialization</b>: The instance is typically created lazily, meaning it's not created until it's actually needed. This can improve performance and reduce memory usage, especially if the singleton is not always needed.</li>
+						</ol>	
+					
+						<p style="text-align: justify;">
+							Here's a simple example of a Singleton in C#:
+						</p>
+						<pre><code data-line-numbers>public class Singleton
+{
+	// Private static instance of the Singleton class.
+	private static Singleton instance;
+
+	// Private constructor to prevent external instantiation.
+	private Singleton()
+	{
+		// Initialization code here.
+	}
+
+	// Public method to get the Singleton instance.
+	public static Singleton GetInstance()
+	{
+		if (instance == null)
+		{
+			instance = new Singleton();
+		}
+		return instance;
+	}
+}
+						</code></pre>
+					
+						<p style="text-align: justify;">
+							Usage of the Singleton pattern:
+						</p>
+
+						<pre class="csharp"><code data-line-numbers>	Singleton firstInstance = Singleton.GetInstance();
+Singleton secondInstance = Singleton.GetInstance();
+
+// firstInstance and secondInstance are the same object
+bool areSame = (firstInstance == secondInstance); // true
+						</code></pre>
+						
+						<p style="text-align: justify;">
+							In this example, you cannot create multiple instances of the `Singleton` class because the constructor is private. You access the single instance using the `GetInstance` method, and it ensures that there's only one instance created.
+							While this basic Singleton pattern works, it's important to note that it's not thread-safe. If multiple threads attempt to access the Singleton simultaneously, it can lead to multiple instances being created. To make the Singleton pattern thread-safe, you can use various techniques, such as using a lock or relying on the static constructor to guarantee thread safety. Additionally, in modern C#, you can leverage the `Lazy<T>` class to implement a thread-safe Singleton more easily.
+						</p>
+
+					</section>
+					<section id="factory-method-pattern" data-menu-title="Factory Method Pattern">
+						<h4 style="text-align: justify;">Factory Method Pattern</h4>
+						<p style="text-align: justify;">
+							The Factory Method Pattern is a creational design pattern in C# and other 
+							object-oriented programming languages. It provides an interface for creating 
+							objects, but it lets subclasses decide which class to instantiate. 
+							In other words, it abstracts the process of object creation and allows a class 
+							to delegate the responsibility of creating objects to its subclasses.
+							Here's how the Factory Method Pattern works in C#:
+						</p>
+						<ol class="formatted">
+							<li><b>Creator Interface/Abstract Class</b>: This is an interface or abstract class that declares a factory method. The factory method is an abstract method that should return an object of a specific type. This class may also include other methods that operate on the product.</li>
+							<li><b>Concrete Creators (Subclasses)</b>: Concrete classes that inherit from the creator interface/abstract class. These classes implement the factory method, providing specific implementations for creating objects. Each concrete creator decides which concrete product class to instantiate.</b></li>
+							<li><b>Product</b>: The product is the object created by the factory method. There can be multiple product classes that implement a common product interface or inherit from a common product base class.</li>
+						</ol>
+						<p style="text-align: justify;">
+							Here's a simplified example of the Factory Method Pattern in C#:
+						</p>
+						<pre class="csharp"><code>// Product interface
+public interface IProduct
+{
+	void DoSomething();
+}
+
+// Concrete Product classes
+public class ConcreteProductA : IProduct
+{
+	public void DoSomething()
+	{
+		Console.WriteLine("Product A is doing something.");
+	}
+}
+
+public class ConcreteProductB : IProduct
+{
+	public void DoSomething()
+	{
+		Console.WriteLine("Product B is doing something.");
+	}
+}
+
+// Creator interface
+public interface ICreator
+{
+	IProduct FactoryMethod();
+}
+
+// Concrete Creator classes
+public class ConcreteCreatorA : ICreator
+{
+	public IProduct FactoryMethod()
+	{
+		return new ConcreteProductA();
+	}
+}
+
+public class ConcreteCreatorB : ICreator
+{
+	public IProduct FactoryMethod()
+	{
+		return new ConcreteProductB();
+	}
+}
+
+// Usage
+class Program
+{
+	static void Main()
+	{
+		ICreator creator = new ConcreteCreatorA();
+		IProduct product = creator.FactoryMethod();
+		product.DoSomething();
+
+		creator = new ConcreteCreatorB();
+		product = creator.FactoryMethod();
+		product.DoSomething();
+	}
+}
+</code></pre>
+						<p style="text-align: justify;">
+							In this example, we have a product interface (`IProduct`) that defines the behavior of products, two concrete product classes (`ConcreteProductA` and `ConcreteProductB`), and a creator interface (`ICreator`) with a factory method (`FactoryMethod`). We also have two concrete creator classes (`ConcreteCreatorA` and `ConcreteCreatorB`) that implement the factory method to create specific products.
+							When you want to create a product, you choose the appropriate concrete creator (e.g., `ConcreteCreatorA` or `ConcreteCreatorB`) based on your requirements, and the factory method of that creator will create the specific product (e.g., `ConcreteProductA` or `ConcreteProductB`).
+							The Factory Method Pattern is useful when you want to allow for the flexibility of object creation and make your code more maintainable and extensible by decoupling the client code from the actual object creation process.
+						</p>
+					</section>
+					<section id="abstract-factory-pattern" data-menu-title="Abstract Factory Pattern">
+						<h4 style="text-align: justify;">Abstract Factory Pattern</h4>
+						<p style="text-align: justify;">
+							The Abstract Factory Pattern is a creational design pattern in C# and other
+							object-oriented programming languages. It provides an interface for creating
+							families of related or dependent objects without specifying their concrete classes.
+							This pattern is particularly useful when you need to ensure that the created objects
+							work together harmoniously.
+							Here's how the Abstract Factory Pattern works in C#:
+						</p>
+						<ol class="formatted">
+							<li><b>Abstract Factory Interface/Abstract Class</b>: This is an interface or abstract class that declares a set of factory methods for creating a family of related objects. Each factory method corresponds to creating a specific type of object.</li>
+							<li><b>Concrete Factories</b>: Concrete classes that implement the abstract factory interface/abstract class. Each concrete factory is responsible for creating a family of related objects. These concrete factories may have different implementations for creating objects, but they adhere to the same interface or inherit from the same abstract class.</li>
+							<li><b>Abstract Product Interfaces/Abstract Classes</b>: These are interfaces or abstract classes that define the families of products that the factories create. Each product corresponds to a specific type of object.</li>
+							<li><b>Concrete Product Classes</b>: Concrete classes that implement the abstract product interfaces/abstract classes. These are the actual objects that are created by the factories.</li>
+						</ol>
+						<p style="text-align: justify;">
+							Here's a simplified example of the Abstract Factory Pattern in C#:
+						</p>
+						<pre class="csharp"><code>// Abstract product interfaces
+public interface IButton
+{
+	void Click();
+}
+
+public interface ITextBox
+{
+	void InputText(string text);
+}
+
+// Concrete product classes
+public class WindowsButton : IButton
+{
+	public void Click()
+	{
+		Console.WriteLine("Windows button clicked.");
+	}
+}
+
+public class WindowsTextBox : ITextBox
+{
+	public void InputText(string text)
+	{
+		Console.WriteLine($"Windows textbox: {text}");
+	}
+}
+
+public class MacOSButton : IButton
+{
+	public void Click()
+	{
+		Console.WriteLine("MacOS button clicked.");
+	}
+}
+
+public class MacOSTextBox : ITextBox
+{
+	public void InputText(string text)
+	{
+		Console.WriteLine($"MacOS textbox: {text}");
+	}
+}
+
+// Abstract factory interface
+public interface IUIFactory
+{
+	IButton CreateButton();
+	ITextBox CreateTextBox();
+}
+
+// Concrete factories
+public class WindowsUIFactory : IUIFactory
+{
+	public IButton CreateButton()
+	{
+		return new WindowsButton();
+	}
+
+	public ITextBox CreateTextBox()
+	{
+		return new WindowsTextBox();
+	}
+}
+
+public class MacOSUIFactory : IUIFactory
+{
+	public IButton CreateButton()
+	{
+		return new MacOSButton();
+	}
+
+	public ITextBox CreateTextBox()
+	{
+		return new MacOSTextBox();
+	}
+}
+
+// Usage
+class Program
+{
+	static void Main()
+	{
+		IUIFactory factory = new WindowsUIFactory();
+		IButton button = factory.CreateButton();
+		ITextBox textBox = factory.CreateTextBox();
+
+		button.Click();
+		textBox.InputText("Hello, Abstract Factory!");
+	}
+}
+</code></pre>
+						<p style="text-align: justify;">
+							In this example, we have two families of related objects: Windows UI components (WindowsButton and WindowsTextBox) and MacOS UI components (MacOSButton and MacOSTextBox). The Abstract Factory Pattern allows you to create these objects using abstract factories (WindowsUIFactory and MacOSUIFactory) without specifying their concrete classes in the client code.
+							This pattern is useful when you need to ensure that the objects you create are compatible and belong to the same family. It promotes loose coupling between client code and the concrete classes, making it easier to switch between different families of objects without affecting the rest of the code.
+						</p>
+					</section>
+					<section id="builder-pattern" data-menu-title="Builder Pattern">
+						<h4 style="text-align: justify;">Builder Pattern</h4>
+						<p style="text-align: justify;">
+							The Builder Pattern is a creational design pattern in C# and other object-oriented 
+							programming languages. It is used when you need to create complex objects with 
+							many optional configuration settings. The pattern separates the construction of 
+							a complex object from its representation, allowing you to create an object 
+							step by step. This can improve the readability and maintainability of code by 
+							making it more explicit and allowing for flexible object creation.
+							Here's how the Builder Pattern works in C#:
+						</p>
+						<ol class="formatted">
+							<li><b>Builder Interface/Abstract Class</b>: This is an interface or abstract class that defines a set of methods for configuring the product step by step. These methods are typically used to set various attributes of the object.</li>
+							<li><b>Concrete Builders</b>: Concrete classes that implement the builder interface/abstract class. Each concrete builder is responsible for constructing a specific product. They provide methods to set the various attributes and return the product in its final form.</li>
+							<li><b>Product</b>: The object being constructed, which can be complex with many optional parameters. The product class typically has a constructor that takes the builder as a parameter and uses it to set the object's attributes.</li>
+							<li><b>Director (optional)</b>: An optional component that controls the construction process by using a builder to create a product. It's not always necessary, but it can be useful for orchestrating complex object creation.</li>
+						</ol>
+						<p style="text-align: justify;">
+							Here's a simplified example of the Builder Pattern in C#:
+						</p>
+						<pre class="csharp"><code>// Product class
+public class Computer
+{
+	public string CPU { get; set; }
+	public string RAM { get; set; }
+	public string Storage { get; set; }
+	public string GPU { get; set; }
+
+	public Computer(string cpu, string ram, string storage, string gpu)
+	{
+		CPU = cpu;
+		RAM = ram;
+		Storage = storage;
+		GPU = gpu;
+	}
+
+	public void DisplayInfo()
+	{
+		Console.WriteLine($"CPU: {CPU}, RAM: {RAM}, 
+		                    Storage: {Storage}, GPU: {GPU}");
+	}
+}
+
+// Builder interface
+public interface IComputerBuilder
+{
+	void SetCPU(string cpu);
+	void SetRAM(string ram);
+	void SetStorage(string storage);
+	void SetGPU(string gpu);
+	Computer Build();
+}
+
+// Concrete builder
+public class GamingComputerBuilder : IComputerBuilder
+{
+	private Computer computer = new Computer("Intel i9", "32GB", 
+	                                         "1TB SSD", "NVIDIA RTX 3080");
+
+	public void SetCPU(string cpu)
+	{
+		computer.CPU = cpu;
+	}
+
+	public void SetRAM(string ram)
+	{
+		computer.RAM = ram;
+	}
+
+	public void SetStorage(string storage)
+	{
+		computer.Storage = storage;
+	}
+
+	public void SetGPU(string gpu)
+	{
+		computer.GPU = gpu;
+	}
+
+	public Computer Build()
+	{
+		return computer;
+	}
+}
+
+// Director (optional)
+public class ComputerShop
+{
+	public Computer BuildComputer(IComputerBuilder builder)
+	{
+		builder.SetCPU("Intel i7");
+		builder.SetRAM("16GB");
+		builder.SetStorage("512GB SSD");
+		builder.SetGPU("NVIDIA GTX 1660");
+
+		return builder.Build();
+	}
+}
+
+// Usage
+class Program
+{
+	static void Main()
+	{
+		var shop = new ComputerShop();
+		var gamingComputerBuilder = new GamingComputerBuilder();
+		var gamingComputer = shop.BuildComputer(gamingComputerBuilder);
+
+		var officeComputerBuilder = new OfficeComputerBuilder();
+		var officeComputer = shop.BuildComputer(officeComputerBuilder);
+
+		gamingComputer.DisplayInfo();
+		officeComputer.DisplayInfo();
+	}
+}
+						</code></pre>
+						<p style="text-align: justify;">
+							In this example, we have a `Computer` class as the product. We define a `GamingComputerBuilder` class that implements the `IComputerBuilder` interface to build gaming computers. The optional `ComputerShop` class acts as a director to configure and build computers. The director can use different builders to create various configurations of the product.
+							The Builder Pattern allows you to create complex objects with different configurations without cluttering the product class's constructor with a long list of parameters. It also makes the construction process more expressive and easier to read and maintain.
+						</p>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/reveal.js-menu/menu.js"></script>
+		<script src="plugin/reveal.js-appearance/appearance.js"></script>
+
+		<script>
+            function resetSlideScrolling(slide) {
+                slide.classList.remove('scrollable-slide');
+            }
+            function handleSlideScrolling(slide) {
+                if (slide.scrollHeight >= 800) {
+                    slide.classList.add('scrollable-slide');
+                }
+            }
+			Reveal.initialize({
+                width: 960,
+				height: 700,
+				margin: 0.04,
+                minScale: 0.2,
+                maxScale: 2.0,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu, Appearance],
+				menu: {
+					openButton: true,
+					transitions: false,
+					themes: false,
+					themesPath: 'dist/theme/',
+					titleSelector: '',
+					hideMissingTitles: true,
+					custom: [
+						{
+							title: 'Links',
+							icon: '<i class="fa fa-link">',
+							content: `<ul class="slide-menu-items">
+										<li class="slide-menu-item">
+											<i class="fab fa-linkedin" style="display:inline-block !important; padding-right: 12px;"></i>
+											<a href="https://www.linkedin.com/in/thierrylangie" target="new" style="text-decoration:none !important;">LinkedIn profile</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-file-pdf" style="display:inline-block !important;"></i>
+											<a href="cv/cv_Thierry_Langie.pdf" target="new" style="text-decoration:none !important;">CV in Adobe PDF</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-file-word" style="display:inline-block !important;"></i>
+											<a href="cv/cv_Thierry_Langie.docx" target="new" style="text-decoration:none !important;">CV in Word DOC</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-book" style="display:inline-block !important;"></i>
+											<a href="#/upcoming-book" target="new" style="text-decoration:none !important;">Grab my book</a>
+										</li>
+									  </ul>`
+						},
+						{
+							title: 'About',
+							icon: '<i class="fa fa-user">',
+							content: `<p style="line-height: 25px;">
+										My name is Thierry Langie.<br/>
+										My core business is to create Fast, Performance-Focused,
+										Secure web applications using the latest and revolutionary technologies.
+									  </p>
+									  <div style="background-color: #666; padding: 14px 0;">
+									    <h2 style="text-align: center; color: #aaaaaa">Currently not available</h1>
+									  </div>`
+						}
+					]
+				},
+				appearance: {
+					appearevent: 'slidechanged'
+				}
+			});
+            Reveal.addEventListener('ready', function (event) {
+                handleSlideScrolling(event.currentSlide);
+            });
+            Reveal.addEventListener('slidechanged', function (event) {
+                if (event.previousSlide) {
+                    resetSlideScrolling(event.previousSlide);
+                }
+                handleSlideScrolling(event.currentSlide);
+            });
+		</script>
+	</body>
+</html>

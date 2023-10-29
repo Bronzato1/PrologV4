@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Prolog</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css" id="theme">
+		
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style>
+            .slide-menu-panel {
+				zoom: 0.85;
+            }
+            h1 {
+                text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 20px 20px rgba(0, 0, 0, 0.15) !important;
+            }
+            h1, h2, h3, h4 {
+                text-transform: none !important;
+            }
+            p {
+                font-size: 20px !important;
+            }
+            ul {
+                text-align: justify !important;
+                font-size: 20px !important;
+            }
+            .big-i::before {
+                content: "";
+                display: inline-block;
+                margin-right: 6px;
+                width: 8px;
+                height: 40px;
+                border-radius: 50px;
+                background-color: var(--r-main-color);
+            }
+            .goto-next,
+            .goto-previous {
+                font-size: 20px !important;
+                font-weight: bold;
+                background-color: rgba(165,165,165,0.1);
+                display: inline-block;
+                border-radius: 30px;
+                padding: 20px;
+            }
+			.tags-cloud {
+				padding-top: 15px;
+			}
+            .tags-cloud li {
+                float: left;
+                list-style-type: none;
+                border-radius: 10px;
+                background-color: rgba(165,165,165,0.05);
+                margin: 8px 5px;
+                padding: 1px 9px;
+            }
+            ul.companies {
+                font-size: 20px;
+                columns: 3;
+                -webkit-columns: 3;
+                -moz-columns: 3;
+                width: 80%;
+            }
+            ul.companies li {
+                list-style-type: none;
+            }
+			ul.companies li img {
+				filter: invert(100%);
+				scale: 0.6;
+			}
+
+            .border-radius-aaa {
+                display: inline-block;
+                background-color: rgba(165,165,165,0.05);
+                border-radius: 60% 40% 51% 49% / 56% 55% 45% 44%;
+            }
+            .border-radius-bbb {
+                display: inline-block;
+                background-color: rgba(165,165,165,0.05);
+                border-radius: 60% 40% 63% 37% / 40% 46% 54% 60%;
+            }
+
+            .scrollable-slide::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            .scrollable-slide {
+                height: 700px;
+                overflow-y: scroll;
+            }
+
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Thierry Langie</h3>
+						<p style="text-align:justify;" class="big-i">
+							have been working as a programmer since 1996.
+							I do this for a living and love what I do as every day there is something new and exciting to learn.
+							I have been fortunate to work with some truly exceptional businesses over the last 20 years in totally different industries.
+							I have engineered strong, data-driven web applications using the Microsoft .NET Framework.
+							Click here to find more about my <a href="#/0/1">professional experience</a> below.
+						</p>
+					
+						<ul style="display: block; margin-left: 0;">
+							<li class="animate__skidLeft" data-delay="00"><strong>LinkedIn</strong> profile page is <a href="https://www.linkedin.com/in/thierrylangie/" target="_blank">available here</a></li>
+							<li class="animate__skidLeft" data-delay="10"><strong>Availability</strong>: Freelance / Remotely</li>
+							<li class="animate__skidLeft" data-delay="20"><strong>Updated CV</strong> in <a href="https://www.prolog.red/cv/cv_Thierry_Langie.pdf" target="_blank">Adobe</a> or <a href="https://www.prolog.red/cv/cv_Thierry_Langie.docx">Word</a> format</li>
+							<li class="animate__skidLeft" data-delay="30"><strong>Role</strong>: Full stack .Net developer</li>
+							<li class="animate__skidLeft" data-delay="40"><strong>Email</strong>: <a href="mailto:thierry.langie@skynet.be">thierry.langie@skynet.be</a></li>
+							<li class="animate__skidLeft" data-delay="50"><strong>Location</strong>: Namur, Belgium</li>
+							<li class="animate__skidLeft" data-delay="60"><strong>Experience</strong>: <a href="#/0/1">20+ missions / years</a></li>
+						</ul>
+					</section>
+					<section>
+						<h4>Professional experience</h4>
+						<br />
+						<ul style="font-size: 20px; columns: 1; -webkit-columns: 1; -moz-columns: 1; width: 70%;">
+							<li><a href="#/schenk">Schenk</a></li>
+							<li><a href="#/credit-general">Credit General</a></li>
+							<li><a href="#/labima">Labima</a></li>
+							<li><a href="#/kraft-jacobs-suchard">Kraft Jacobs Suchard</a></li>
+							<li><a href="#/coca-cola">Coca-Cola Belgium</a></li>
+							<li><a href="#/jpass-international">JPass International</a></li>
+							<li><a href="#/t-plan">T-Plan</a></li>
+							<li><a href="#/sopres">Sopres</a></li>
+							<li><a href="#/tott-systems">Tott Systems</a></li>
+							<li><a href="#/fortis-insurance">Fortis Insurance</a></li>
+							<li><a href="#/baxter">Baxter</a></li>
+							<li><a href="#/akzonobel">AkzoNobel</a></li>
+							<li><a href="#/glaxo-smith-kline">Glaxo Smith Kline</a></li>
+							<li><a href="#/olympic-committee">Olympic Committee</a></li>
+							<li><a href="#/transnubel">Transnubel</a></li>
+							<li><a href="#/engie-solutions">Engie Solutions</a></li>
+							<li><a href="#/equans">Equans Belgium</a></li>
+						</ul>
+					</section>
+					<section id="schenk">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Professional experience</a>
+						<h4 style="text-align: justify;">Schenk</h4>
+						<p style="text-align: justify;">
+							Wine merchant on a European scale. After more than a century, the Schenk group is present in Switzerland, France, Italy, Spain, Germany, Benelux and Great Britain. The group’s steady expansion is combined with a policy of major investments in vineyards as well as in recent equipment and techniques for wine cellars and bottling lines.
+						</p>
+						<p style="text-align: justify;">
+							●1996● Stock Management System with statistics and reports. Complete stock control over multiple warehouses and locations. Overview of stock data, minimal quantities and expiring items. Useful insights into profit, sales and stock supply. Simplify and speed up the process from quote to delivery and final invoice.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Credit General<br />▼</a>
+					</section>
+					<section id="credit-general">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Schenk</a>
+						<h4 style="text-align: justify;">Credit General</h4>
+						<p style="text-align: justify;">
+							Now parts of the group CBC (french-speaking branch of the KBC group). Belgian group of international scope, active mainly in Belgium as well as in Central and Eastern Europe.
+						</p>
+						<p style="text-align: justify;">
+							●1996● Prospection Software designed for the Credit General. Complete module of prospection and qualification of prospects and customers files. Complete history of all actions on prospect/client files and contacts. Complete workflow on appointments management : appointments orders, confirmation of appointments, appointment status by employees, full statistics. Contact file entirely configurable (numbers of columns, column nominations).
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Labima<br />▼</a>
+					</section>
+					<section id="labima">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Credit General</a>
+						<h4 style="text-align: justify;">Labima</h4>
+						<p style="text-align: justify;">
+							Belgian private pharmaceutical laboratory, located in the region of Brussels (Belgium). She ceased her activities in 2016. The objectives of Labima are clear: delivering high quality products and services in a win-win way for our partners and ourselves.
+						</p>
+						<p style="text-align: justify;">
+							●1997● Sales Representative software for monitoring commercial delegates performance. The bi-directional synchronization is done daily. Main features are as follows: recording sales visit data; arranging follow-up calls or visits; route planning between appointments; sales reporting.</li>
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Kraft Jacobs Suchard<br />▼</a>
+					</section>
+					<section id="kraft-jacobs-suchard">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Labima</a>
+						<h4 style="text-align: justify;">Kraft Jacobs Suchard</h4>
+						<p style="text-align: justify;">
+							Now belongs to group Kraft Foods which is an American food manufacturing.
+						</p>
+						<p style="text-align: justify;">
+							●1998● European Survey on sales performance. Electronic forms dispatched via Outlook in order to collect information. Serves as an indicator of the country’s statistical performance.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Coca-Cola<br />▼</a>
+					</section>
+					<section id="coca-cola">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Kraft Jacobs Suchard</a>
+						<h4 style="text-align: justify;">Coca-Cola</h4>
+						<p style="text-align: justify;">
+							American multinational beverage corporation incorporated under Delaware’s General Corporation Law and headquartered in Atlanta, Georgia. The Coca-Cola Company has interests in the manufacturing, retailing, and marketing of nonalcoholic beverage concentrates and syrups. The company produces Coca-Cola, invented in 1886 by pharmacist John Stith Pemberton.
+						</p>
+						<p style="text-align: justify;">
+							●1998● Migration of Excel Macros to interrogate a server mainframe-based. SQL queries dynamically generated.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">JPass International<br />▼</a>
+					</section>
+					<section id="jpass-international">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Coca-Cola</a>
+						<h4 style="text-align: justify;">JPass International</h4>
+						<p style="text-align: justify;">
+							Belgian private ICT company, located in the region of Brussels (Belgium). she ceased her activities in 2016.
+						</p>
+						<p style="text-align: justify;">
+							●1997● Material Safety Data Sheets (MSDS) expert software. Manage transport documents and security documents related to chemicals. Users can easily search and print SDS’s for all of the chemicals they work with. Software used by clients like Petrofina, Texaco and Total to name a few.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">T-Plan<br />▼</a>
+					</section>
+					<section id="t-plan">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />JPass International</a>
+						<h4 style="text-align: justify;">T-Plan</h4>
+						<p style="text-align: justify;">
+							Continued the development of the test management tool, for testing of the dematerialisation of share certificates project. The solution was ensuring that programs of critical importance to the UK and Global economy were developed, tested and launched successfully.
+						</p>
+						<p style="text-align: justify;">
+							●1999● Geographic Information System (GIS) software. Used to establish routes for placement of optic fibers in the ground. The software integrate Autocad maps (dwg) for mapping. Modulation and structuration of spatial data. Complete toolbox (plot, lines, curves, shapes, adding annotations, etc…).
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Sopres<br />▼</a>
+					</section>
+					<section id="sopres">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />T-Plan</a>
+						<h4 style="text-align: justify;">Sopres</h4>
+						<p style="text-align: justify;">
+							A consumer-oriented marketing data specialist.
+						</p>
+						<p style="text-align: justify;">
+							●1999● In-house Rental Mailing List software designed with IT and business collaboration in mind. The software’s capability to handle various kinds of queries according to the business requirements. Helps minimize human error and offers a secure way for all users to access and utilize data. Help identify and fill gaps in missing information, and decrease redundancy. Easy-to-use and intuitive interface so that even your non-technical staff can use it.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Tott Systems<br />▼</a>
+					</section>
+					<section id="tott-systems">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Sopres</a>
+						<h4 style="text-align: justify;">Tott Systems</h4>
+						<p style="text-align: justify;">
+							Belgian private ICT company, located in the region of Brussels (Belgium). She ceased her activities in 2005.
+						</p>
+						<p style="text-align: justify;">
+							●1999● Helpdesk Solution for monitoring interventions among company’s clients.
+							<br />
+							●1999● Freight Transport Management software. Made bug-fixes and added features to the application.
+							<br />
+							●2000● Year 2000 developments related as well as the changeover to the euro currency.
+							<br />
+							●2000● Backup Solution software designed in 2000. Remotely controlled through a phone connection (RDC).
+							<br />
+							●2001● Documentation Automation solution from source code.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Fortis Insurance Belgium<br />▼</a>
+					</section>
+					<section id="fortis-insurance">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Tott Systems</a>
+						<h4 style="text-align: justify;">Fortis Insurance Belgium</h4>
+						<p style="text-align: justify;">
+							Belgian insurance company providing life insurance and non-life insurance (auto, fire, accident, hospitalization, civil liability and other) and supplementary pensions. It has been present on the Belgian insurance market since 1824. It targets private individuals, as well as self-employed persons, SMEs and large companies.
+						</p>
+						<p style="text-align: justify;">
+							●2000● Financial Operations (FinOp) software. Bug fixing and implemented enhancements.
+							<br />
+							●2001● Authentication modules to gain access to internet services. Stability improvements.
+							<br />
+							●2002● E-banking Access Securisation module updated in 2002. Digipass readers.
+							<br />
+							●2003● Tax Records Management software designed in 2003 for internal use.
+							<br />
+							●2004● Expenses Validation web-based application updated in 2004. As a member of a five-person team.
+							<br />
+							●2005● Brokers Bank website. Collaborated closely with a fifteenperson team.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Baxter<br />▼</a>
+					</section>
+					<section id="baxter">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Fortis Insurance Belgium</a>
+						<h4 style="text-align: justify;">Baxter</h4>
+						<p style="text-align: justify;">
+							American multinational health care company with headquarters in Deerfield, Illinois. The company primarily focuses on products to treat hemophilia, kidney disease, immune disorders and other chronic and acute medical conditions.
+						</p>
+						<p style="text-align: justify;">
+							●2010● Environment Health Safety (EHS) software release new updated version in 2010. Industrial hygiene and chemical risk management to improve well-being at work. Help reduce time, effort and cost by standardising and automating processes in order to improve effectiveness and efficiency.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">AkzoNobel<br />▼</a>
+					</section>
+					<section id="akzonobel">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Baxter</a>
+						<h4 style="text-align: justify;">AkzoNobel</h4>
+						<p style="text-align: justify;">
+							Dutch multinational company which creates paints and performance coatings for both industry and consumers worldwide. Headquartered in Amsterdam, the company has activities in more than 80 countries, and employs over 32,000 people.
+						</p>
+						<p style="text-align: justify;">
+							●2010● Production Management Template for Microsoft Excel®. Generator and calculator of production orders. Main features are planning, monitoring, production statistics and reporting. Furthermore the elimination of manual data entry and manual transposition errors improved the process.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Glaxo Smith Kline<br />▼</a>
+					</section>
+					<section id="glaxo-smith-kline">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />AkzoNobel</a>
+						<h4 style="text-align: justify;">Glaxo Smith Kline</h4>
+						<p style="text-align: justify;">
+							British multinational pharmaceutical company headquartered in London, England. Established in 2000 by a merger of Glaxo Wellcome and SmithKline Beecham, GSK was the world’s sixth largest pharmaceutical company according to Forbes as of 2019, after Pfizer, Novartis, Roche, Sanofi, and Merck & Co.
+						</p>
+						<p style="text-align: justify;">
+							●2009● BioStat Scientific data collection and analysis software. The objectives laid down for this program are multiple like the ease of use, the clear presentation of results. All the possible statistical procedures have not been included yet but any such additions are quite simple.
+							<br />
+							●2010● Dynamic Planner Template released for Microsoft Excel®. Custom made tool allowing order taking of new preparations and their planning on a dynamic schedule covering a full year. Daily, weekly, monthly planner that helps teams to keep well organized. Includes up to 52 weeks on separate worksheets. Designed to be printed on both sides of A3 format with a month on each side.
+							<br />
+							●2010● TrattScan In-house Management Training Courses Software updated in 2010 with enhancements and bug fixes. This tool can help teams to stay up-to-date and quickly gain new skills with engaging training modules by connecting users to their every process, policy, and procedure.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Belgian Olympic Committee<br />▼</a>
+					</section>
+					<section id="olympic-committee">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Glaxo Smith Kline</a>
+						<h4 style="text-align: justify;">Belgian Olympic Committee</h4>
+						<p style="text-align: justify;">
+							National Olympic Committee (NOC) that represents the Olympic movement and its values in Belgium.
+						</p>
+						<p style="text-align: justify;">
+							●2011● Sports Information Management System updated during the first half of 2011 with enhancements and helped spot and debug any errors inside this in-house software. The primary goal is the recording of individual athlete’s profiles for fast and reliable access to information.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Transnubel<br />▼</a>
+					</section>
+					<section id="transnubel">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Belgian Olympic Committee</a>
+						<h4 style="text-align: justify;">Transnubel</h4>
+						<p style="text-align: justify;">
+							Highly integrated solutions provider for the nuclear sector. They coordinate all the activities in Belgium and abroad from the headquarters in the Belgian town of Dessel.
+						</p>
+						<p style="text-align: justify;">
+							●2006● Enterprise Content Management (ECM) - Transport Management System (TMS)
+							<br />
+							●2008● Industrial Packages Monitoring software
+							<br />
+							●2012● Shuttle Transport Booking web application
+							<br />
+							●2014● Packing Registration and Identification Software (PARIS)
+							<br />
+							●2015● Intranet-like web portal for internal use
+							<br />
+							●2016● Web-based Transport Management System (TMS)
+							<br />
+							●2018● Web-based Enterprise Content Management (ECM)
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Engie Solutions<br />▼</a>
+					</section>
+					<section id="engie-solutions">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Transnubel</a>
+						<h4 style="text-align: justify;">Engie Solutions</h4>
+						<p style="text-align: justify;">
+							Engie Solutions supports cities, industries and tertiary sector companies by providing them with answers to the challenge of the energy transition through turnkey and tailor-made offers.
+						</p>
+						<p style="text-align: justify;">
+							●2021● Migration tasks from on-premises infrastructure to Azure cloud servers. Implemented effective strategies to ensure seamless transition. Collaborated with the stakeholders and various technical teams. IIS Mail Server integration with various applications, resulting in improved communication and workflow efficiency. This involved configuring SMTP and IMAP protocols to ensure secure and reliable email delivery.
+						</p>
+						<a href="" class="navigate-down goto-next border-radius-bbb animate__fadeInUp animate__faster" data-delay="200">Equans<br />▼</a>
+					</section>
+					<section id="equans">
+						<a href="" class="navigate-up goto-previous border-radius-aaa animate__fadeInDown animate__faster" data-delay="100">▲<br />Engie Solutions</a>
+						<h4 style="text-align: justify;">Equans Belgium</h4>
+						<p style="text-align: justify;">
+							Leading global player in multi-technical installations and maintenance services. They design, install and deliver customised solutions and services to improve customers' infrastructure, equipment, systems and technical processes.
+						</p>
+						<p style="text-align: justify;">
+							●2022● Okta integration with existing web applications for simplifying the process of securing sensitive data. As an Okta integrator, I had to design and implement solutions that meet the unique needs of each web application. Interoperability of various web applications allowing exchange of data between different platforms, ultimately leading to improved productivity and enhanced user experience.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section data-auto-animate>
+						<h3 class="border-radius-bbb" style="padding: 36px;">Upcoming book</h3>
+						<p style="text-align: justify;">
+							This book explores different software development methods
+							and habits that I have been applying for a long time.
+							All the enterprise developers who are part of our industry
+							are the potential readers.
+						</p>
+						<div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+							<img src="images/book-cover-1.png" style="filter: drop-shadow(11px 7px 12px rgba(35,35,35,0.7));" />
+						</div>
+						<p style="text-align: justify;">
+							<span style="border-radius: 25px; padding: 2px 7px; border: 3px dotted rgba(165,165,165,0.3);">What readers are saying ?</span>
+							Check out some of the testimonials to see what others are saying about this book.
+						</p>
+						<p style="text-align: justify;">
+							The book explains Software Engineering concepts in a clear way; while providing learning opportunities that become more challenging throughout the book. I found the learning approach very useful to reinforce and expand my knowledge of concepts such as modelling, Object-Oriented Programming (OOP), unit testing & Test-Driven Development and many others.
+						</p>
+						<p style="text-align: justify">
+							I'm a self-taught programmer of 8+ years in various frameworks & languages, mostly sticking with C#. With all that in mind, this is simply a must-have to ANYONE who is interested in web development with C#. The book goes through everything you need to know to make your own web site from the very beginnings of a project and, throughout the book, construct a fully-functioning web application.
+						</p>
+						<p style="text-align: justify;">
+							The book is easy to follow. Explains the basic’s very detailed to comprehend. The book isn’t a thick arsed book, where your like my gosh..I have to read this all to get it?? Chapters aren’t long, at all…gets to the darn point of things. A must have for anyone who needs help, in learning C# or for anyone who needs to revisit the subject…and besides it’s inexpensive to buy…Enjoy.
+						</p>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/reveal.js-menu/menu.js"></script>
+		<script src="plugin/reveal.js-appearance/appearance.js"></script>
+
+		<script>
+            function resetSlideScrolling(slide) {
+                slide.classList.remove('scrollable-slide');
+            }
+            function handleSlideScrolling(slide) {
+                if (slide.scrollHeight >= 800) {
+                    slide.classList.add('scrollable-slide');
+                }
+            }
+			Reveal.initialize({
+				hash: true,
+                width: 390,
+				height: 844,
+                center: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMenu, Appearance],
+				menu: {
+					openButton: true,
+					transitions: false,
+					themes: false,
+					themesPath: 'dist/theme/',
+					titleSelector: 'h1, h2, h3',
+					hideMissingTitles: true,
+					custom: [
+						{
+							title: 'Links',
+							icon: '<i class="fa fa-link">',
+							content: `<ul class="slide-menu-items">
+										<li class="slide-menu-item">
+											<i class="fab fa-linkedin" style="display:inline-block !important; padding-right: 12px;"></i>
+											<a href="https://www.linkedin.com/in/thierrylangie" target="new" style="text-decoration:none !important;">LinkedIn profile</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-file-pdf" style="display:inline-block !important;"></i>
+											<a href="cv/cv_Thierry_Langie.pdf" target="new" style="text-decoration:none !important;">CV in Adobe PDF</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-file-word" style="display:inline-block !important;"></i>
+											<a href="cv/cv_Thierry_Langie.docx" target="new" style="text-decoration:none !important;">CV in Word DOC</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-book" style="display:inline-block !important;"></i>
+											<a href="#/1" target="new" style="text-decoration:none !important;">Grab my book</a>
+										</li>
+									  </ul>`
+						},
+						{
+							title: 'About',
+							icon: '<i class="fa fa-user">',
+							content: `<p style="line-height: 25px;">
+										My name is Thierry Langie.<br/>
+										My core business is to create Fast, Performance-Focused,
+										Secure web applications using the latest and revolutionary technologies.
+									  </p>
+									  <div style="background-color: #666; padding: 14px 0;">
+									    <h2 style="text-align: center; color: #aaaaaa">Currently not available</h1>
+									  </div>`
+						}
+					]
+				},
+				appearance: {
+					appearevent: 'slidechanged'
+				}
+			});
+            Reveal.addEventListener('ready', function (event) {
+                handleSlideScrolling(event.currentSlide);
+            });
+            Reveal.addEventListener('slidechanged', function (event) {
+                if (event.previousSlide) {
+                    resetSlideScrolling(event.previousSlide);
+                }
+                handleSlideScrolling(event.currentSlide);
+            });
+		</script>
+	</body>
+</html>
