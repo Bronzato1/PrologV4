@@ -42,30 +42,43 @@
 				padding: 0px;
 			}
 
-			ol.formatted {
-				list-style: none;
-				counter-reset: item;
-			}
+            ol.formatted {
+                list-style: none;
+                counter-reset: item;
+                /*counter-increment: item;*/
+            }
 
-			ol.formatted li {
-				counter-increment: item;
-			}
+                ol.formatted li {
+                    counter-increment: item;
+                }
 
-				ol.formatted li::before {
-					content: counter(item);
-					border-radius: 60% 40% 63% 37% / 40% 46% 54% 60%;
-					width: 1.2em;
-					text-align: center;
-					display: inline-block;
-					background-color: rgba(165,165,165,0.1);
-					font-size: 45px;
-					font-family: fantasy;
-					margin-left: -65px;
-					margin-right: 10px;
-					vertical-align: text-top;
-					margin-bottom: -40px;
-				}
+                    ol.formatted li::before {
+                        content: counter(item);
+                        border-radius: 60% 40% 63% 37% / 40% 46% 54% 60%;
+                        width: 1.2em;
+                        text-align: center;
+                        display: inline-block;
+                        background-color: rgba(165,165,165,0.1);
+                        font-size: 45px;
+                        font-family: fantasy;
+                        margin-left: -65px;
+                        margin-right: 10px;
+                        vertical-align: text-top;
+                        margin-bottom: -40px;
+                    }
 
+                ol.formatted[start] {
+                    /*counter-reset: item;*/
+                    /*counter-increment: item;*/
+                }
+
+                ol.formatted > li[value] {
+                    /*counter-increment: item;*/
+                }
+
+            /*ol.formatted > li[value]:before {*/
+                /*counter-increment: item;*/
+            /*}*/
 			.big-i {
 				margin-left: 20px !important;
 			}
@@ -1083,7 +1096,7 @@
 								<li><a href="#/factory-method-pattern">Factory Method Pattern</a></li>
 								<li><a href="#/abstract-factory-pattern">Abstract Factory Pattern</a></li>
 								<li><a href="#/builder-pattern">Builder Pattern</a></li>
-								<li><a href="#">Prototype Pattern</a></li>
+								<li><a href="#/prototype-pattern">Prototype Pattern</a></li>
 								<li><a href="#">Adapter Pattern</a></li>
 								<li><a href="#">Decorator Pattern</a></li>
 								<li><a href="#">Facade Pattern</a></li>
@@ -1495,6 +1508,75 @@ class Program
 						<p style="text-align: justify;">
 							In this example, we have a `Computer` class as the product. We define a `GamingComputerBuilder` class that implements the `IComputerBuilder` interface to build gaming computers. The optional `ComputerShop` class acts as a director to configure and build computers. The director can use different builders to create various configurations of the product.
 							The Builder Pattern allows you to create complex objects with different configurations without cluttering the product class's constructor with a long list of parameters. It also makes the construction process more expressive and easier to read and maintain.
+						</p>
+					</section>
+					<section id="prototype-pattern" data-menu-title="Prototype Pattern">
+						<h4 style="text-align: justify;">Prototype Pattern</h4>
+						<p style="text-align: justify;">
+							The Prototype Pattern is a design pattern used in software development to create
+							new objects by copying an existing object, known as the prototype. This pattern
+							is particularly useful when creating objects is more expensive or complex than
+							copying an existing one. It is part of the creational design pattern category.
+							In C#, you can implement the Prototype Pattern using the following steps:
+						</p>
+						<ol class="formatted" style="counter-reset: item 0;">
+							<li value="3">
+								Create an abstract or interface class (or use an existing class) that defines a
+								method for cloning objects. This method should return a new instance of the same
+								class, essentially creating a deep copy of the object.
+							</li>
+						</ol>
+						<pre class="csharp"><code>public abstract class Prototype
+	{
+		public abstract Prototype Clone();
+	}
+	</code></pre>
+
+						<ol class="formatted" style="counter-reset: item 1; padding-top: 30px;">
+							<li value="6">Implement concrete classes that inherit from the prototype class. These classes should provide their own implementation of the `Clone` method to create a copy of the object. The cloning process should involve duplicating all the object's properties and data.</li>
+						</ol>
+
+						<pre class="csharp"><code>public class ConcretePrototype : Prototype
+{
+	public int Id { get; set; }
+	public string Name { get; set; }
+
+	public override Prototype Clone()
+	{
+		// Create a new instance and copy the data
+		ConcretePrototype copy = new ConcretePrototype();
+		copy.Id = this.Id;
+		copy.Name = this.Name;
+		return copy;
+	}
+}
+</code></pre>						
+
+						<ol class="formatted" style="counter-reset: item 2; padding-top: 30px;">
+							<li value="4">Create a client code that uses the prototype objects to create new instances by cloning the prototypes. This allows you to create new objects without knowing their specific type or the details of their creation.</li>
+						</ol>
+						
+						<pre class="formatted"><code>class Program
+{
+	static void Main(string[] args)
+	{
+		// Create a prototype instance
+		ConcretePrototype prototype = new ConcretePrototype();
+		prototype.Id = 1;
+		prototype.Name = "Original Object";
+
+		// Clone the prototype to create a new object
+		ConcretePrototype copy = (ConcretePrototype)prototype.Clone();
+		copy.Name = "Cloned Object";
+
+		Console.WriteLine("Original Object: Id={0}, Name={1}", prototype.Id, prototype.Name);
+		Console.WriteLine("Cloned Object: Id={0}, Name={1}", copy.Id, copy.Name);
+	}
+}
+</code></pre>
+						
+						<p style="text-align: justify; padding-top: 30px;">
+							In this example, the Prototype Pattern allows you to create a new object by cloning an existing prototype object. This is particularly useful when creating similar objects with shared properties but different values. It avoids the need to create objects from scratch, which can be expensive or complex, and promotes code reusability.
 						</p>
 					</section>
 				</section>
