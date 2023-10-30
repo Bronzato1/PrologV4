@@ -1598,7 +1598,10 @@ class Program
                 if (slide.scrollHeight >= 800) {
                     slide.classList.add('scrollable-slide');
                 }
-            }
+			}
+            function controlScroll(event) {
+                document.getElementsByClassName('scrollable-slide')[0].scrollTop += event.deltaY;
+            };
 			Reveal.initialize({
                 width: 960,
 				height: 700,
@@ -1665,7 +1668,13 @@ class Program
                     resetSlideScrolling(event.previousSlide);
                 }
                 handleSlideScrolling(event.currentSlide);
-            });
+			});
+
+            if (document.attachEvent) // if IE (and Opera depending on user setting)
+                document.attachEvent("onmousewheel", controlScroll)
+            else if (document.addEventListener)  // WC3 browsers
+                document.addEventListener("mousewheel", controlScroll, false);
+
 		</script>
 	</body>
 </html>
