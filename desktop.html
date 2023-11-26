@@ -6,6 +6,7 @@
 
 		<title>Prolog</title>
 
+		<link rel="stylesheet" href="dist/logo.css">
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/league.css" id="theme">
@@ -14,9 +15,15 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
 		<style>
-			.slide-menu-panel {
-				zoom: 0.85;
-			}
+
+            :root {
+                --r-link-color: #F87171;
+                --r-link-color-hover: #F88888;
+                --r-link-color-dark: #F87171;
+            }
+            .slide-menu-panel {
+                zoom: 0.85;
+            }
 
 			h1 {
 				text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 20px 20px rgba(0, 0, 0, 0.15) !important;
@@ -1645,13 +1652,15 @@ class Program
 						{
 							title: 'About',
 							icon: '<i class="fa fa-user">',
-							content: `<p style="line-height: 25px;">
-										My name is Thierry Langie.<br/>
-										My core business is to create Fast, Performance-Focused,
-										Secure web applications using the latest and revolutionary technologies.
-									  </p>
-									  <div style="background-color: #666; padding: 14px 0;">
-									    <h2 style="text-align: center; color: #aaaaaa">Currently not available</h1>
+                            content: `<ul class="formatted" style="margin-left: 20px; line-height: 30px;">
+									  <li>Role: Full stack .Net developer</li>
+									  <li>Email: thierry.langie@skynet.be</li>
+									  <li>Location: Namur, Belgium</li>
+									  <li>Experience: 20+ missions / years</li>
+									  </ul>
+									  
+									  <div style="zoom: 0.15; position: absolute; bottom: 40px;">
+									    <img src="images/book-cover-2.png" />
 									  </div>`
 						}
 					]
