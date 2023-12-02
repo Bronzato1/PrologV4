@@ -336,6 +336,24 @@
 				}
 			}
 
+            ul.about-section li {
+                cursor: default !important;
+                background-color: #333 !important;
+				color: #aaa !important; 
+            }
+            ul.about-section li:hover {
+                background-color: #333 !important;
+                color: #aaa !important;
+            }
+
+            .about-pills {
+                background-color: #a4a4a4;
+                font-weight: 700;
+                margin: 2px 0px;
+				border-radius: 4px;
+                border: 0;
+            }
+
 		</style>
 	</head>
 	<body>
@@ -1647,20 +1665,88 @@ class Program
 											<i class="fas fa-book" style="display:inline-block !important;"></i>
 											<a href="#/upcoming-book" target="new" style="text-decoration:none !important;">Grab my book</a>
 										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-play" style="display:inline-block !important;"></i>
+											<a href="https://www.pluralsight.com/paths/design-patterns-in-c" target="new" style="text-decoration:none !important;">Design patterns in C#</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-play" style="display:inline-block !important;"></i>
+											<a href="https://www.pluralsight.com/paths/net-developer-on-microsoft-azure" target="new" style="text-decoration:none !important;">.NET Developer on Microsoft Azure</a>
+										</li>
+										<li class="slide-menu-item">
+											<i class="fas fa-play" style="display:inline-block !important;"></i>
+											<a href="https://www.pluralsight.com/courses/okta-administration-identity-access-management-cert" target="new" style="text-decoration:none !important;">Okta: Identity and Access Management</a>
+										</li>
 									  </ul>`
 						},
 						{
 							title: 'About',
 							icon: '<i class="fa fa-user">',
-                            content: `<ul class="formatted" style="margin-left: 20px; line-height: 30px;">
-									  <li>Role: Full stack .Net developer</li>
-									  <li>Email: thierry.langie@skynet.be</li>
-									  <li>Location: Namur, Belgium</li>
-									  <li>Experience: 20+ missions / years</li>
-									  </ul>
-									  
+                            content: `<ul class="slide-menu-items about-section">
+										<li class="slide-menu-item">
+											<u>Role</u>: Full stack .Net developer
+										</li>
+										<li class="slide-menu-item">
+											<u>Email</u>: thierry.langie@skynet.be
+										</li>
+										<li class="slide-menu-item">
+											<u>Phone</u>: +32 486 96 45 77
+										</li>
+										<li class="slide-menu-item">
+											<u>Location</u>: Namur, Belgium
+										</li>
+										<li class="slide-menu-item">
+											<u>Languages</u>: French, English
+										</li>
+										<li class="slide-menu-item">
+											<u>Age</u>: 50 years old
+										</li>
+										<li class="slide-menu-item">
+											<button class="btn btn-primary about-pills" type="submit">C-SHARP <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">ASP.NET <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">MVC <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">WEB API <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">RAZOR <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">ASP.NET CORE <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">BLAZOR <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">IIS <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">SQL SERVER <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">HTML <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">CSS <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">JAVASCRIPT <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">TYPESCRIPT <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">JQUERY <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">AJAX <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">GULP <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">GITHUB <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">TFS <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">AZURE <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">MS ACCESS <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">AURELIA FRAMEWORK <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">VB SCRIPT <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">VISUAL STUDIO <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">ENTITY FRAMEWORK <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">CODE FIRST <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">CRYSTAL REPORTS <span class="fa fa-check"></span></button>
+											<button class="btn btn-primary about-pills" type="submit">OKTA <span class="fa fa-check"></span></button>
+										</li>
+										<li class="slide-menu-item">
+											<u>Experience</u>: 20+ years of experience
+										</li>
+										<li class="slide-menu-item">
+											<u>Missions</u>: 33+ completed projects
+										</li>
+										<li class="slide-menu-item">
+											<u>Consulting</u>: 1999 → 2024
+										</li>
+										<li class="slide-menu-item">
+											<u>Book</u>: C# .NET REFERENCE
+										</li>
+									  </ul>									  
 									  <div style="zoom: 0.15; position: absolute; bottom: 40px;">
-									    <img src="images/book-cover-2.png" />
+										<a href="#/upcoming-book">
+											<img src="images/book-cover-2.png" />
+										</a>
 									  </div>`
 						}
 					]
